@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsx",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js -d src/db/data-source.ts",
+    "migration:generate": "npm run typeorm -- migration:generate src/db/migration/InitSchema",
+    "migration:run": "npm run typeorm -- migration:run",
+    "migration:revert": "npm run typeorm -- migration:revert"
   },
   "keywords": [],
   "author": "",
