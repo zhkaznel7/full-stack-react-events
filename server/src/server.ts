@@ -8,6 +8,14 @@ import { AppDataSourse } from './db/data-source';
 
 const app = fastify({ logger: true}) ;
 
+app.decorate('authenticate', async function authenticate(request, reply){
+    try{
+        await request.jwtVerify()
+    }catch (error) {
+        reply.code(401).send({message: 'Unauthorized'})
+    }
+})
+
 const start = async () => {
     try{
         validateEnv()
