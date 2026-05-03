@@ -5,6 +5,7 @@ import 'dotenv/config';
 import 'reflect-metadata';
 import { validateEnv, env } from '../config/env';
 import { AppDataSourse } from './db/data-source';
+import { authRoutes } from './modules/auth/auth.routes';
 
 const app = fastify({ logger: true}) ;
 
@@ -28,6 +29,8 @@ const start = async () => {
         await app.register(fastiJwt, {
             secret: env.jwtSecret
         })
+
+        await app.register(authRoutes, { prefix: '/auth' })
         await AppDataSourse.initialize();
         app.log.info('Database connected')
         await app.listen({ port: env.port, host: env.host})
