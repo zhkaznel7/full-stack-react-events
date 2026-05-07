@@ -1,4 +1,5 @@
 $kind: http-request
+name: register
 url: ""
 method: GET
-order: 1777817585755
+order: 2000
