@@ -2,13 +2,12 @@ import { FastifyPluginAsync } from "fastify";
 import { AppDataSourse } from "../../db/data-source";
 import { User } from "../../db/entities/user.entity";
 import { loginSchema, registerSchema } from "./auth.schemas";
-import { error } from "node:console";
 import argon2 from "argon2";
-import { request } from "node:http";
 
-export const authRoutes: FastifyPluginAsync = async (app) =>{
-    const userRepository = AppDataSourse.getRepository(User)
+export const authRoutes: FastifyPluginAsync = async (app) => {
+    const userRepository = AppDataSourse.getRepository(User);
 
+    // 1. REGISTER
     app.post('/register', async (request, reply) => {
         const parseBody = registerSchema.safeParse(request.body);
 
@@ -19,14 +18,14 @@ export const authRoutes: FastifyPluginAsync = async (app) =>{
                     path: issue.path.join('.'),
                     message: issue.message
                 }))
-            })
+            });
         }
 
-        const { email, password, name} = parseBody.data;
-        const existingUser = await userRepository.findOne({ where: { email }})
+        const { email, password, name } = parseBody.data;
+        const existingUser = await userRepository.findOne({ where: { email } });
 
         if (existingUser) {
-            return reply.code(409).send({ message: 'Пользователь с таким email уже есть'})
+            return reply.code(409).send({ message: 'Пользователь с таким email уже есть' });
         }
 
         const passwordHash = await argon2.hash(password);
@@ -34,10 +33,10 @@ export const authRoutes: FastifyPluginAsync = async (app) =>{
             email,
             passwordHash,
             name
-        })
+        });
 
         const saveduser = await userRepository.save(user);
-        const token = await reply.jwtSign({ sub: saveduser.id, email: saveduser.email})
+        const token = await reply.jwtSign({ sub: saveduser.id, email: saveduser.email });
 
         return reply.code(201).send({
             token,
@@ -46,9 +45,10 @@ export const authRoutes: FastifyPluginAsync = async (app) =>{
                 email: saveduser.email,
                 name: saveduser.name
             }
-        })
-    })
+        });
+    });
 
+    // 2. LOGIN
     app.post('/login', async (request, reply) => {
         const parseBody = loginSchema.safeParse(request.body);
 
@@ -59,24 +59,23 @@ export const authRoutes: FastifyPluginAsync = async (app) =>{
                     path: issue.path.join('.'),
                     message: issue.message
                 }))
-                
-
-            })
+            });
         }
 
-        const { email, password} = parseBody.data
-        const user = await userRepository.findOne({ where: { email }})
+        const { email, password } = parseBody.data;
+        const user = await userRepository.findOne({ where: { email } });
 
         if (!user) {
-            return reply.code(401).send({ message: 'Неверные логин или пароль'})
+            return reply.code(401).send({ message: 'Неверные логин или пароль' });
         }
 
-        const isPasswordValid = await argon2.verify(user.passwordHash, password)
+        const isPasswordValid = await argon2.verify(user.passwordHash, password);
 
         if (!isPasswordValid) {
-            return reply.code(401).send({ message: 'Неверные логин или пароль'})
+            return reply.code(401).send({ message: 'Неверные логин или пароль' });
         }
-        const token = await reply.jwtSign({ sub: user.id, email: user.email});
+
+        const token = await reply.jwtSign({ sub: user.id, email: user.email });
 
         return reply.send({
             token,
@@ -85,6 +84,24 @@ export const authRoutes: FastifyPluginAsync = async (app) =>{
                 email: user.email,
                 name: user.name
             }
-        })
-    })
+        });
+    });
+
+    // 3. GET ME (Мұнда қате болған - ASYNC қостық)
+    app.get('/me', { preHandler: [app.authenticate] }, async (request, reply) => {
+        const userId = (request.user as any).sub; // request.user ішінен ID аламыз
+        const user = await userRepository.findOne({ where: { id: userId } });
+
+        if (!user) {
+            return reply.code(404).send({ message: 'Пользователь не найден' });
+        }
+
+        return reply.send({
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt
+        });
+    });
 }

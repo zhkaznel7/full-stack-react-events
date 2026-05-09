@@ -1,5 +1,5 @@
 $kind: http-request
-name: login
+name: me
 url: ""
 method: GET
-order: 1000
+order: 3000
