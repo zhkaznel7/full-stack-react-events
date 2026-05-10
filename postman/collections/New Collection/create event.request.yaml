@@ -1,4 +1,26 @@
 $kind: http-request
-url: ""
-method: GET
-order: 5000
+name: create event
+url: http://localhost:3000/events
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"title\": \"Танцы на пляже\",\r
+
+    \    \"description\": \"Будем танцевать на пляже и украдем фургон потом\",\r
+
+    \    \"capacity\": 2,\r
+
+    \    \"address\": \"Пляж Santa Monica\",\r
+
+    \    \"startedAt\": \"2026-09-01\"\r
+
+    \r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzZmQ1ZGNiMi02MDdkLTQxNjUtOGNmMi04ZGIzOTg4MjgzOTciLCJlbWFpbCI6InRlc3RAdGVzdC5ydSIsImlhdCI6MTc3ODMzNDA0Mn0.6RFf4kcLxGcXDFyvdEOVghH2tBm_fWsbTLSBQ-ZWLY0
+order: 6000

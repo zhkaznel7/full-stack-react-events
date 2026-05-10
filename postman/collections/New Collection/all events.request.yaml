@@ -1,0 +1,10 @@
+$kind: http-request
+name: all events
+url: http://localhost:3000/events
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDI3NjM5YS00NWVmLTRlZTAtODBkOS01ZjJmMGEyMGNiYmYiLCJlbWFpbCI6InRlc3QyQHRlc3QucnUiLCJpYXQiOjE3NzgzMjA1NTd9.EFNp6dGo9hxbIAUix1tGfffMMwrru5bra0Mf1fWd7VY
+examples: .resources/all events.resources/examples
+order: 5000

@@ -7,6 +7,7 @@ import { validateEnv, env } from '../config/env';
 import { AppDataSourse } from './db/data-source';
 import { authRoutes } from './modules/auth/auth.routes';
 import { eventsRoutes } from './modules/events/events.routes';
+import { meRoutes } from './modules/me/me.routes';
 
 const app = fastify({ logger: true}) ;
 
@@ -33,6 +34,8 @@ const start = async () => {
 
         await app.register(authRoutes, { prefix: '/auth' })
         await app.register(eventsRoutes, { prefix: '/events' })
+        await app.register(meRoutes, { prefix: '/me' })
+
 
         await AppDataSourse.initialize();
         app.log.info('Database connected')

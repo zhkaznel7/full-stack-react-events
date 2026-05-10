@@ -1,0 +1,10 @@
+$kind: http-request
+name: get evetn by id
+url: http://localhost:3000/events/97ea9acb-66bf-4cea-bc1d-f16252e734ea
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzZmQ1ZGNiMi02MDdkLTQxNjUtOGNmMi04ZGIzOTg4MjgzOTciLCJlbWFpbCI6InRlc3RAdGVzdC5ydSIsImlhdCI6MTc3ODMxNTg3MH0.MMx02pRY6W-D7LlAJ1eZIHZCpZ55eLW9k_GVO5TdCUo
+examples: .resources/get evetn by id.resources/examples
+order: 4000

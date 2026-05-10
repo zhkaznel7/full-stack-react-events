@@ -1,0 +1,10 @@
+$kind: http-request
+name: joined
+url: http://localhost:3000/me/events/joined
+method: GET
+auth:
+  credentials:
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNGU2ZTlmMS02NTdhLTQ3NGUtYTUyMC1iNDkwOGI5OTFkMTciLCJlbWFpbCI6InRlc3QxQHRlc3QucnUiLCJpYXQiOjE3NzgzMzQxMDJ9.dC7dje-oS3zoOoHGBe_r2JuV3TU5NqQPfQi6wwTCtxE
+  type: bearer
+examples: .resources/joined.resources/examples
+order: 9937

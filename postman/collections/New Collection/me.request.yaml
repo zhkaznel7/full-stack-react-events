@@ -1,5 +1,18 @@
 $kind: http-request
 name: me
-url: ""
+url: http://localhost:3000/auth/me
 method: GET
+body:
+  type: json
+  content: "{\r
+
+    \    \"email\": \"test@test.ru\",\r
+
+    \    \"password\": \"123123123\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzZmQ1ZGNiMi02MDdkLTQxNjUtOGNmMi04ZGIzOTg4MjgzOTciLCJlbWFpbCI6InRlc3RAdGVzdC5ydSIsImlhdCI6MTc3ODE2OTc1NX0.zQ9T5CgwMHR_BfGKOwaRAd7lijjemw7gKXpR6Hte_0c
 order: 3000

@@ -1,0 +1,9 @@
+$kind: http-request
+url: http://localhost:3000/events/7b631d38-03b2-45c9-8c59-9cc5043f53ba/join
+method: POST
+auth:
+  credentials:
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDI3NjM5YS00NWVmLTRlZTAtODBkOS01ZjJmMGEyMGNiYmYiLCJlbWFpbCI6InRlc3QyQHRlc3QucnUiLCJpYXQiOjE3NzgzMjEzNTV9.oQGIfBsrRs1bKNW_qxhk2kIDFsL6u4Y0MZFrA0prgpY
+  type: bearer
+examples: .resources/exit fom event.resources/examples
+order: 1457985528273514
