@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { Suspense } from 'react'
+import {RouterProvider} from 'react-router-dom'
+import { appRouter } from './router'
 
-export const app-router-provider = () => {
+export const AppRouterProvider = () => {
   return (
-    <div>app-router-provider</div>
+    <Suspense fallback={
+      <div className='grid min-h-svh place-itemes-center text-sm text-muted-foreground'>
+        Загрузка...
+
+      </div>
+    }>
+      <RouterProvider router={appRouter}/>
+    </Suspense>
   )
 }
