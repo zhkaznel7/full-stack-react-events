@@ -1,3 +1,13 @@
+export type ApiFieldError = {
+    path: string
+    message: string
+}
+
+export type ApiErrorResponse = {
+    message: string
+    errors?: ApiFieldError[]
+}
+
 export type UserPublic ={
     id: string
     email: string
@@ -22,5 +32,6 @@ export type AuthResponse = {
 export type AuthRegisterRequest = {
     email: string
     password: string
+    name: string
 }
 
