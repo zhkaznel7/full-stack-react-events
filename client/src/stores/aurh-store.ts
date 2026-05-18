@@ -25,7 +25,7 @@ function profileToUser(profile:{
     return {id: profile.id, email: profile.email, name: profile.name}
 }
 
-export const userAuthStore = create<AuthState>((set, get) =>({
+export const useAuthStore = create<AuthState>((set, get) =>({
     user: null,
     bootstraped: false,
     isAutLoading: false,
