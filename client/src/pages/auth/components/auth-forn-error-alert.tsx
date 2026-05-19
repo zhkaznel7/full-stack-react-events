@@ -5,7 +5,8 @@ type Props = {
 export function AuthFormErrorAlert({
     message
 }: Props){
+    return(
     <p className="text-descructive text-sm" role="alert">
         {message}
-    </p>
+    </p>)
 }
