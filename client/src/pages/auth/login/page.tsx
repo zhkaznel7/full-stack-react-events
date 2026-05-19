@@ -1,11 +1,10 @@
 import { AuthScreenLayout } from "../components/auth-screen-layout";
-import { RegisterForm } from "../components/register-form";
+import { LoginForm } from "../components/login-form";
 
-
-export function AuthRegisterPage() {
+export function AuthLoginPage() {
     return (
         <AuthScreenLayout>
-            <RegisterForm />
+            <LoginForm />
         </AuthScreenLayout>
     )
 }

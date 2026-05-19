@@ -1,8 +1,11 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "./router/root-layout";
 import { RootRedirect } from "./router/root-redirect";
 import { GuestRoute } from "./router/guest-route";
 import { ProtectedRoute } from "./router/protected-route";
+import { RegisterForm } from "@/pages/auth/components/register-form";
+import { AuthRegisterPage } from "@/pages/auth/register/page";
+import { Navigate } from "react-router-dom";
 
 export const appRouter = createBrowserRouter([
     {
@@ -14,7 +17,7 @@ export const appRouter = createBrowserRouter([
                 element: <GuestRoute/>,
                 children: [
                     { path: 'login', element: <h1>Login</h1>},
-                    { path: 'register', element: <h1>register</h1>}
+                    { path: 'register', element: <AuthRegisterPage/>}
 
                 ]
             },
