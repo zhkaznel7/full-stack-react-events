@@ -1,4 +1,4 @@
-import { useAuthStore } from "@/stores/aurh-store";
+import { useAuthStore } from "@/stores/auth-store";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthFormCard } from "./auth-form-card";
