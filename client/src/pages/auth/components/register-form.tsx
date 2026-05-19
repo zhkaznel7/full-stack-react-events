@@ -1,5 +1,5 @@
 import { useAuthStore } from "@/stores/auth-store";
-import { useState } from "react";
+import { useState, type SubmitEvent  } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthFormCard } from "./auth-form-card";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui/field";
@@ -13,7 +13,34 @@ export function RegisterForm() {
     const authError = useAuthStore(s => s.authError);
     const isAuthLoading = useAuthStore(s => s.isAutLoading); 
     const [clientError, setClientError] = useState<string | null>(null);
-    const handleSubmit = () => {}
+    const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setClientError(null);
+        const form = event.currentTarget;
+        const formData = new FormData(form);
+        const name = String(formData.get('name') ?? '').trim() 
+        const email = String(formData.get('email') ?? '').trim() 
+        const password = String(formData.get('password') ?? '')
+        const confirmPassword = String(formData.get('confirm-password') ?? '');
+
+        if (password !== confirmPassword){
+            setClientError('Пароли не совпадают')
+            return
+        }
+        if (password.length < 8){
+            setClientError('Пароли не должен быть короче 8 символов')
+            return
+        }
+        if (name.length < 2){
+            setClientError('Пароли не должен быть меньше 2 символов')
+            return
+        }
+        try{
+            await register({ email, password, name})
+        } catch (error) {
+
+        }
+    }
     const topError = clientError ?? authError
 
     return(

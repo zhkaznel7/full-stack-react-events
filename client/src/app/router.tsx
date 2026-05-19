@@ -6,6 +6,7 @@ import { ProtectedRoute } from "./router/protected-route";
 import { RegisterForm } from "@/pages/auth/components/register-form";
 import { AuthRegisterPage } from "@/pages/auth/register/page";
 import { Navigate } from "react-router-dom";
+import { AuthLoginPage } from "@/pages/auth/login/page";
 
 export const appRouter = createBrowserRouter([
     {
@@ -16,7 +17,7 @@ export const appRouter = createBrowserRouter([
             {
                 element: <GuestRoute/>,
                 children: [
-                    { path: 'login', element: <h1>Login</h1>},
+                    { path: 'login', element: <AuthLoginPage/>},
                     { path: 'register', element: <AuthRegisterPage/>}
 
                 ]

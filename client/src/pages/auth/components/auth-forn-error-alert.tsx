@@ -6,7 +6,7 @@ export function AuthFormErrorAlert({
     message
 }: Props){
     return(
-    <p className="text-descructive text-sm" role="alert">
+    <p className="text-desctructive text-sm" role="alert">
         {message}
     </p>)
 }
