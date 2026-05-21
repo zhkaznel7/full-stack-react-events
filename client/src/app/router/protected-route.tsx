@@ -5,7 +5,7 @@ import { ProtecteLayout } from "./protected-layout";
 export function ProtectedRoute(){
     const user = useAuthBootstrap();
     if (!user){
-        return <Navigate to="login" replace/>
+        return <Navigate to="/login" replace/>
     }
     return <ProtecteLayout />
 }

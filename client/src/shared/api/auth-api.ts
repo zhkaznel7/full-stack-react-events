@@ -13,7 +13,7 @@ export const authApi = {
         return data;
     },
     async me(): Promise<UserProfile> {
-        const { data } = await http.post<UserProfile>('/auth/me');
+        const { data } = await http.get<UserProfile>('/auth/me');
 
         return data;
     }  

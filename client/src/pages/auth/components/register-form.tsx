@@ -6,6 +6,8 @@ import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui
 import { AuthFormErrorAlert } from "./auth-forn-error-alert";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Navigate } from "react-router-dom";
+
 
 export function RegisterForm() {
     const navigate = useNavigate();
