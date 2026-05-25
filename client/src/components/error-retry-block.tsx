@@ -1,0 +1,16 @@
+type Props = {
+    message: string
+    className?: string
+}
+export function ErrorRetryBlock({
+    message,
+    className
+}: Props){
+    return(
+        <div className={cn("flex flex-col gap-2", className) }>
+            <p className="text-sm text-desctive">
+                { message }
+            </p>
+        </div>
+    )
+}

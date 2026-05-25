@@ -7,6 +7,7 @@ import { RegisterForm } from "@/pages/auth/components/register-form";
 import { AuthRegisterPage } from "@/pages/auth/register/page";
 import { Navigate } from "react-router-dom";
 import { AuthLoginPage } from "@/pages/auth/login/page";
+import { EventsAllPage } from "@/pages/auth/events/all/page";
 
 export const appRouter = createBrowserRouter([
     {
@@ -25,7 +26,7 @@ export const appRouter = createBrowserRouter([
             {
                 element: <ProtectedRoute />, 
                 children: [
-                    { path: 'events', element: <h1>events</h1>},
+                    { path: 'events', element: <EventsAllPage/>},
                     { path: 'events/my', element: <h1>events/my</h1>},
                     { path: 'events/new', element: <h1>events/new</h1>},
                     { path: 'events/:id', element: <h1>events:id</h1>},
