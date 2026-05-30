@@ -7,7 +7,9 @@ import { RegisterForm } from "@/pages/auth/components/register-form";
 import { AuthRegisterPage } from "@/pages/auth/register/page";
 import { Navigate } from "react-router-dom";
 import { AuthLoginPage } from "@/pages/auth/login/page";
-import { EventsAllPage } from "@/pages/auth/events/all/page";
+import { EventsAllPage } from "@/pages/events/all/page";
+import { EventsNewPage } from "@/pages/events/new/page";
+import { EventDetailsPage } from "@/pages/events/details/page";
 
 export const appRouter = createBrowserRouter([
     {
@@ -28,8 +30,8 @@ export const appRouter = createBrowserRouter([
                 children: [
                     { path: 'events', element: <EventsAllPage/>},
                     { path: 'events/my', element: <h1>events/my</h1>},
-                    { path: 'events/new', element: <h1>events/new</h1>},
-                    { path: 'events/:id', element: <h1>events:id</h1>},
+                    { path: 'events/new', element: <EventsNewPage/>},
+                    { path: 'events/:id', element: <EventDetailsPage/>},
                     { path: 'events/:id/edit', element: <h1>events/:id/edit</h1>}
 
                 ]
