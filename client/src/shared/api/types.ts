@@ -39,7 +39,7 @@ export type EventDto = {
     id: string
     title: string
     description: string
-    capacity: string
+    capacity: number
     address: string
     startedAt: string
     ownerId: string
