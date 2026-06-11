@@ -1,14 +1,14 @@
-import {  TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import type { EventDto } from "@/shared/api/types"
-import { Table } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Button } from "@/components/ui/button"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { formatStartsAt } from "@/lib/utils"
+import type { EventDto } from "@/shared/api/types"
+import { Link } from "react-router-dom"
 
 type Props = {
     events: EventDto[]
 }
 
-export function CreatedEventsTable({ events}: Props) {
+export function CreatedEventsTable({ events }: Props) {
     return (
         <Table>
             <TableHeader>
@@ -35,16 +35,16 @@ export function CreatedEventsTable({ events}: Props) {
                             <TableCell className="max-w-[14rem] text-muted-foreground">
                                 { event.address}
                             </TableCell>
-                            <TableCell className="tabular-nums">
-                                {event.capacity}
-                            </TableCell>
-                            <TableCell>
-                                <Link to={`/events/${event.id}/edit`}>
-                                    Изменить
-                                </Link>
+                            <TableCell className="tabular-nums">{event.capacity}</TableCell>
+                            <TableCell className="text-right">
+                                <Button variant="link" size="sm" className="h-auto p-0">
+                                    <Link to={`/events/${event.id}/edit`}>
+                                        Изменить
+                                    </Link>
+                                </Button>
                             </TableCell>
                         </TableRow>
-                    ) )
+                    ))
                 }
             </TableBody>
         </Table>

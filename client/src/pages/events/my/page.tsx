@@ -5,8 +5,10 @@ import { useEffect } from "react";
 import { MyEventsTitle } from "../components/my-events-stat-title";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CreatedEventsTable } from "../components/created-events-table";
+import { JoinedEventsTable } from "../components/joined-events-table";
+// import { JoinedEventsTable } from "../components/joined-events-table";
 
-export function EventsMyPage(){
+export function EventsMyPage() {
     const user = useAuthStore(s => s.user)
     const events = useEventsStore(s => s.events)
     const joinedEvents = useEventsStore(s => s.joinedEvents)
@@ -23,18 +25,18 @@ export function EventsMyPage(){
             loadEvents(),
             loadJoinedEvents()
         ])
+    }, [loadEvents, loadJoinedEvents])
 
-    }, [loadEvents, loadJoinedEvents]
-)
-const createdList = () => {
-    if (!user) return []
-    return events
-        .filter(e => e.ownerId === user.id)
-        .sort((a, b) => a.startedAt.localeCompare(b.startedAt))
-}
+    const createdList = () => {
+        if (!user) return []
+        return events
+            .filter(e => e.ownerId === user.id)
+            .sort((a, b) => a.startedAt.localeCompare(b.startedAt))
+    }
 
-const createdCount = createdList.length
-const joinedCount = joinedEvents.length
+    const createdCount = createdList().length;
+    const joinedCount = joinedEvents.length
+
     return (
         <PageShell title="Мои события">
             <div className="mx-auto flex w-full max-w-6xl flex-col gap-6">
@@ -42,6 +44,7 @@ const joinedCount = joinedEvents.length
                     <MyEventsTitle label="Создано" value={createdCount}/>
                     <MyEventsTitle label="Участвую" value={joinedCount}/>
                 </div>
+
                 {
                     eventsError && (
                         <p>Ошибка загрузки: {eventsError}</p>
@@ -51,13 +54,13 @@ const joinedCount = joinedEvents.length
                 <Tabs
                     value={myEventsFilter}
                     onValueChange={v => {
-                        if(v === 'created' || v === 'joined'){
+                        if (v === 'created' || v === 'joined') {
                             setMyEventsFilter(v)
                         }
                     }}
                     className="gap-4"
                 >
-                    <TabsList className="w-full max-w-md gap-2">
+                    <TabsList className="w-full max-w-md gap-4">
                         <TabsTrigger value="created" className="flex-1">
                             Созданные
                         </TabsTrigger>
@@ -65,22 +68,32 @@ const joinedCount = joinedEvents.length
                             Участвую
                         </TabsTrigger>
                     </TabsList>
+
                     <TabsContent value="created" className="mt-0">
                         {
-                            eventsLoading
-                            ? 'Загрузка'
-                            :(
-                                createdList().length === 0 
-                                    ? 'Нету событий'
-                                    :(
-                                        <CreatedEventsTable events={events}/>
+                                eventsLoading 
+                                    ? 'Загрузка' 
+                                    : (
+                                        createdList().length === 0 
+                                            ? 'Нету событий'
+                                            : (
+                                                <CreatedEventsTable events={createdList()} />
+                                            )
                                     )
-                            )
                         }
-
                     </TabsContent>
                     <TabsContent value="joined" className="mt-0">
-                        joined
+                        {
+                            joinedLoading 
+                                ? 'Загрузка'
+                                : (
+                                    joinedEvents.length === 0
+                                        ? 'Нету обытий в которых вы участвуйте'
+                                        : (
+                                            <JoinedEventsTable rows={joinedEvents}/>
+                                        )
+                                )
+                        }
 
                     </TabsContent>
                 </Tabs>

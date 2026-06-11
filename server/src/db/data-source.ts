@@ -9,6 +9,7 @@ export const AppDataSourse = new DataSource({
     url: env.databaseUrl,
     synchronize: false,
     logging: true,
+    migrationsRun: true,
     entities: [User, Event, EventParticipant],
     migrations: [__dirname + '/migration/*.{ts,js}'],
     subscribers: []

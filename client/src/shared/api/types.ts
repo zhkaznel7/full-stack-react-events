@@ -67,7 +67,7 @@ export type JoinEventRequest = {
     } 
 }
 
-export type JoinEventItem = {
+export type JoinedEventItem = {
     joinedAt: string
     event: EventDto
 }
