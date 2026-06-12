@@ -3,7 +3,6 @@ import { RootLayout } from "./router/root-layout";
 import { RootRedirect } from "./router/root-redirect";
 import { GuestRoute } from "./router/guest-route";
 import { ProtectedRoute } from "./router/protected-route";
-import { RegisterForm } from "@/pages/auth/components/register-form";
 import { AuthRegisterPage } from "@/pages/auth/register/page";
 import { Navigate } from "react-router-dom";
 import { AuthLoginPage } from "@/pages/auth/login/page";

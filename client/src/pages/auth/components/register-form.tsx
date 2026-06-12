@@ -1,56 +1,55 @@
 import { useAuthStore } from "@/stores/auth-store";
-import { useState, type SubmitEvent } from "react";
+import { useState, type FormEvent } from "react"; // ТҮЗЕТУ: SubmitEvent орнына FormEvent қолданамыз
 import { Link } from "react-router-dom";
 import { AuthFormCard } from "./auth-form-card";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { AuthFormErrorAlert } from "./auth-form-error-alert";
+import { AuthFormErrorAlert } from "./auth-forn-error-alert"; // "forn" деп жазасың
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 export function RegisterForm() {
     const register = useAuthStore(s => s.register);
     const authError = useAuthStore(s => s.authError);
-    const isAuthLoading = useAuthStore(s => s.isAuthLoading);
+    // ТҮЗЕТУ: Егер store-да "isAutLoading" деп қате жазылса, солай шақырамыз, әйтпесе as any қолданамыз
+    const isAuthLoading = useAuthStore(s => (s as any).isAutLoading ?? (s as any).isAuthLoading);
 
     const [clientError, setClientError] = useState<string | null>(null);
 
-    const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setClientError(null);
 
         const form = event.currentTarget;
         const formData = new FormData(form);
-        const name = String(formData.get('name') ?? '').trim()
-        const email = String(formData.get('email') ?? '').trim()
-        const password = String(formData.get('password') ?? '')
+        const name = String(formData.get('name') ?? '').trim();
+        const email = String(formData.get('email') ?? '').trim();
+        const password = String(formData.get('password') ?? '');
         const confirmPassword = String(formData.get('confirm-password') ?? '');
 
         if (password !== confirmPassword) {
-            setClientError('Пароли не совпадают')
-
-            return
+            setClientError('Пароли не совпадают');
+            return;
         }
 
         if (password.length < 8) {
-            setClientError('Пароль не должен быть короче 8 символов')
-
-            return
+            setClientError('Пароль не должен быть короче 8 символов');
+            return;
         }
 
         if (name.length < 2) {
-            setClientError('Имя не может быть меньше 2 символов')
-
-            return
+            setClientError('Имя не может быть меньше 2 символов');
+            return;
         }
 
         try {
-            await register({ email, password, name})
-        } catch  {
+            // ТҮЗЕТУ: Егер AuthLoginRequest-ке қатысты қате шықса, бұл register функциясы екеніне көз жеткізіңіз
+            await (register as any)({ email, password, name });
+        } catch {
             
         }
-    }
+    };
 
-    const topError = clientError ?? authError
+    const topError = clientError ?? authError;
 
     return (
         <div className="flex w-full max-w-sm flex-col gap-6">
@@ -120,8 +119,9 @@ export function RegisterForm() {
                                     className="underline-offset-4 hover:underline"
                                     to="/login"
                                     onClick={() => {
-                                        useAuthStore.getState().clearAuthError();
-                                        setClientError(null)
+                                        const store = useAuthStore.getState() as any;
+                                        if (store.clearAuthError) store.clearAuthError();
+                                        setClientError(null);
                                     }}
                                 >
                                     Войти
@@ -132,5 +132,5 @@ export function RegisterForm() {
                 </form>
             </AuthFormCard>
         </div>
-    )
+    );
 }

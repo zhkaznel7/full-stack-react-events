@@ -2,10 +2,10 @@ import z from "zod";
 
 const startedAtSchema = z
     .string()
-    .refine((value) => !Number.isNaN(new Date(value).getTime()),{
-        message: 'startsAt должен быть валидной ISO датой'
+    .refine((value) => !Number.isNaN(new Date(value).getTime()), {
+        message: 'startedAt должен быть валидной ISO датой' // Схемадағы айнымалы атына сай startedAt деп өзгерттім
     })
-    .transform((value) => new Date(value))
+    .transform((value) => new Date(value));
 
 export const createEventSchema = z.object({
     title: z.string().trim().min(1).max(200),
@@ -13,19 +13,14 @@ export const createEventSchema = z.object({
     capacity: z.number().int().positive(),
     address: z.string().trim().min(1).max(255),
     startedAt: startedAtSchema
-
-})
-
-export const updateEventSchema = z.object({
-  title: z.string().optional(),
-  description: z.string().optional(),
-  capacity: z.number().optional(),
-  address: z.string().optional(),
-  startedAt: z.string().optional(),
-}).refine((data) => Object.keys(data).length > 0, {
-  message: "Передайте хотя бы одно поле для редактирования",
 });
 
-
-
-
+export const updateEventSchema = z.object({
+    title: z.string().trim().min(1).max(200).optional(),
+    description: z.string().trim().min(1).optional(),
+    capacity: z.number().int().positive().optional(),
+    address: z.string().trim().min(1).max(255).optional(),
+    startedAt: startedAtSchema.optional() // Осы жерді .optional() қылдық!
+}).refine((data) => Object.keys(data).length > 0, {
+    message: "Передайте хотя бы одно поле для редактирования",
+});

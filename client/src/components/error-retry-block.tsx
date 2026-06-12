@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 type Props = {
     message: string
     className?: string

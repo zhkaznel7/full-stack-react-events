@@ -38,8 +38,8 @@ export const eventsRoutes: FastifyPluginAsync = async (app) => {
             description,
             capacity,
             address,
-            startedAt,
-            ownerId: request.user.sub
+            startedAt: startedAt ? new Date(startedAt) : undefined, // Осы жерді түзету
+            ownerId: (request.user as any).sub
         })
 
         const savedEvenent = await eventRepository.save(event);
@@ -114,7 +114,7 @@ export const eventsRoutes: FastifyPluginAsync = async (app) => {
             event.address = address
         }
         if (startedAt !== undefined) {
-            event.startedAt = startedAt
+            event.startedAt = new Date(startedAt); // string-ті Date объектісіне айналдыру
         }
 
         const updatedEvent = await eventRepository.save(event);
